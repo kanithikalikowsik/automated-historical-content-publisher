@@ -21,15 +21,16 @@
 ---
 
 ## 🏺 The Story Behind the Project
-```
-    History is full of fascinating events, discoveries, people, and ideas. Sharing these stories consistently on social media, however, can       require time for research, writing, and publishing.
+
+    History is full of fascinating events, discoveries, people, and ideas. Sharing these stories consistently on social media, however, can require time for research, writing, and publishing.
     
     The **Automated Historical Content Publisher** explores how generative AI and workflow automation can simplify this process.
     
-    The workflow uses a scheduled trigger to start content generation, Google Gemini to produce historical content, and LinkedIn to publish       the generated post.
+    The workflow uses a scheduled trigger to start content generation, Google Gemini to produce historical content, and LinkedIn to publish
+the generated post.
     
      > **The vision:** Turn historical knowledge into a repeatable, AI-assisted content publishing workflow.
-```
+
 ### Workflow Preview
 
   <img src="https://res.cloudinary.com/dntdfccdk/image/upload/v1792168037/Screenshot_2026-10-16_215628_hoczgk.png" alt="Automated Historical     Content Publisher" width="100%" />
