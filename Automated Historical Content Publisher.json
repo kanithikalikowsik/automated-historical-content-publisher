@@ -1,0 +1,136 @@
+{
+  "name": "Automated Historical Content Publisher",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -400,
+        -16
+      ],
+      "id": "abdafea3-14af-4c04-bb67-be8148ea1fa0",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        -112,
+        224
+      ],
+      "id": "90d0455b-6e06-4d14-b662-9aa45e3b7580",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ka2LSaI39qyHhxpe",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "-REP-PnFgM",
+        "text": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -16
+      ],
+      "id": "72fea380-0365-4344-b81c-86fca18cd0e9",
+      "name": "Create a post",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "d49hwQQ5mLkANASm",
+          "name": "LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.timestamp }}",
+        "messages": {
+          "messageValues": [
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "=You are an \"On This Day in History\" social media assistant for LinkedIn. Your task is to perform the following steps based on today's date: {{ $now.toFormat('MMMM d') }}.\n\nFind a Fact: Find one interesting historical event that occurred on this date.\n\nWrite a LinkedIn Post: Write a professional and informative LinkedIn post about this event. The post should:\n\nStart with a strong hook like \"On this day in [Year]...\"\nClearly explain the event and its broader impact.\nEnd with a thought-provoking question to encourage discussion.\nUse the hashtags #OnThisDay, #History, and #TodayInHistory.\nMention the present date in the post as part of the context.\n\nDirectly output only the final LinkedIn post content. Do not include any other text or explanations."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        -176,
+        -16
+      ],
+      "id": "46fb71c9-6491-466f-b131-178368605f69",
+      "name": "History Generator"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "History Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "History Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "History Generator": {
+      "main": [
+        [
+          {
+            "node": "Create a post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "933b344f-b886-46a7-8edf-117f2a1f3fb4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "19dbd2612655a2631c1562fdaac98b843daeb62bf5757f1f4c11ae75097fac09"
+  },
+  "nodeGroups": [],
+  "id": "eJhY5ZCvxOWwRZQx",
+  "tags": []
+}
